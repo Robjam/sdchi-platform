@@ -1,0 +1,26 @@
+#: schema https://github.com/cloudflare/workers-sdk/files/12887590/wrangler.schema.json
+name = "sdchi-auth"
+main = "src/index.ts"
+compatibility_date = "2022-11-07"
+node_compat = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "sdchi-auth-db"
+database_id = "sdchi-auth-db"
+migrations_dir = "drizzle"
+
+# Dev Env overrides
+[[env.preview.d1_databases]]
+binding = "DB"
+database_name = "dev-sdchi-auth-db"
+database_id = "d4a8939e-8ebc-4357-8b86-35b1723cb60e"
+migrations_dir = "drizzle"
+
+
+# Prod env overrides
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "prod-sdchi-auth-db"
+database_id = "53825883-7d7b-4cb0-89c6-7e1319282365"
+migrations_dir = "drizzle"

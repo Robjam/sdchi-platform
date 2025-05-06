@@ -1,0 +1,29 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nitro build",
+    "dev": "nitro dev",
+    "prepare": "nitro prepare",
+    "preview": "node .output/server/index.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "generate": "drizzle-kit generate:sqlite",
+    "migrate": "wrangler d1 execute sdchi-auth-db --local --file=./drizzle/migrations/0000_snapshot.sql"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.31.0",
+    "nitropack": "latest",
+    "vitest": "^1.4.0"
+  },
+  "dependencies": {
+    "@cloudflare/workers-types": "^4.20250430.0",
+    "@oslojs/crypto": "^1.0.1",
+    "@oslojs/encoding": "^1.1.0",
+    "arctic": "^3.6.0",
+    "dotenv": "^16.5.0",
+    "drizzle-orm": "^0.43.1",
+    "nitro-cloudflare-dev": "^0.2.2",
+    "uuid": "^10.0.0",
+    "wrangler": "^4.13.2"
+  }
+}
