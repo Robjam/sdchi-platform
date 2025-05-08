@@ -1,0 +1,40 @@
+{
+  "name": "sdchi-open",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "db:migrate": "pnpm drizzle-kit migrate",
+    "db:generate": "pnpm drizzle-kit generate",
+    "db:push": "pnpm drizzle-kit push",
+    "migrate": "wrangler d1 migrations apply dev-sdchi-open-db --local --env=preview"
+  },
+  "dependencies": {
+    "@codesandbox/sandpack-react": "^2.20.0",
+    "@headlessui/vue": "^1.7.23",
+    "@nuxt/eslint": "1.4.0",
+    "@nuxt/icon": "1.13.0",
+    "@nuxt/test-utils": "3.19.0",
+    "@nuxtjs/tailwindcss": "^6.14.0",
+    "eslint": "^9.0.0",
+    "html2canvas": "^1.4.1",
+    "nuxt": "^3.17.3",
+    "oauth4webapi": "^3.5.1",
+    "openai": "^4.103.0",
+    "postcss": "^8.4.47",
+    "qalendar": "^3.9.0",
+    "tailwindcss": "^3.4.12",
+    "uuid": "^10.0.0",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "nitro-cloudflare-dev": "^0.2.2"
+  }
+}

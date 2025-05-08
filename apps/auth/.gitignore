@@ -5,3 +5,8 @@ dist
 .cache
 .output
 .env
+
+# CloudFlare
+.wrangler
+
+server/public/style.css

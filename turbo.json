@@ -15,7 +15,17 @@
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "dependsOn": ["^build"],
+      "inputs": ["src/**/*.ts"],
+      "outputs": [".output/**"]
+    },
+    "@repo/sdchi-auth#dev": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["^build"],
+      "inputs": ["apps/auth/**/*.ts"],
+      "outputs": ["apps/auth/.output/**"]
     }
   }
 }

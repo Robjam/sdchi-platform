@@ -1,7 +1,8 @@
 {
-  "name": "sdchi-platform",
+  "name": "sdchi",
   "private": true,
   "scripts": {
+    "dev:auth": "turbo run dev --filter=@repo/sdchi-auth",
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",

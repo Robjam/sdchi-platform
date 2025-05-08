@@ -1,0 +1,1 @@
+ALTER TABLE `portal_sessions` ADD `csrf_token` text;

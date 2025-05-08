@@ -1,14 +1,28 @@
 {
   "$schema": "https://turborepo.com/schema.json",
+  "extends": ["//"],
   "tasks": {
+    "build": {
+      "dependsOn": ["build:css"]
+    },
+    "build:css": {
+      "inputs": ["style.css", "tailwind.config.js", "postcss.config.js"],
+      "outputs": ["server/public/style.css"]
+    },
     "dev": {
       "cache": false,
       "persistent": true,
-      "with": [
-        {
-          "command": "wrangler dev --local --watch"
-        }
-      ]
+      "with": ["dev:css"]
+    },
+    "dev:css": {
+      "cache": false,
+      "persistent": true,
+      "inputs": ["style.css", "tailwind.config.js", "postcss.config.js"],
+      "outputs": ["server/public/style.css"]
+    },
+    "wrangler:dev": {
+      "cache": false,
+      "persistent": true
     }
   }
 }

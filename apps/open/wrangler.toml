@@ -1,0 +1,30 @@
+#: schema https://github.com/cloudflare/workers-sdk/files/12887590/wrangler.schema.json
+name = "sdchi-open"
+main = "dist/_worker.js/index.js"
+compatibility_date = "2025-05-15"
+account_id = "TODO"
+
+[dev]
+port = 2501
+
+
+[[d1_databases]]
+binding = "DB"
+database_name = "sdchi-open-db"
+database_id = "sdchi-open-db"
+migrations_dir = "drizzle"
+
+# Dev Env overrides
+[[env.preview.d1_databases]]
+binding = "DB"
+database_name = "dev-sdchi-open-db"
+database_id = "d4a8939e-8ebc-4357-8b86-35b1723cb60e"
+migrations_dir = "drizzle"
+
+
+# Prod env overrides
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "prod-sdchi-open-db"
+database_id = "53825883-7d7b-4cb0-89c6-7e1319282365"
+migrations_dir = "drizzle"

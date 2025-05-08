@@ -1,0 +1,12 @@
+{
+  "includeDir": "/Users/robjam/code/sdchi-platform/docs",
+  "toolName": "search_docs",
+  "toolDescription": "Search the documentation for bet practices and examples.",
+  "ignorePatterns": [
+    ".github",
+    "node_modules",
+    ".git",
+    "build",
+    "*.log"
+  ]
+}
