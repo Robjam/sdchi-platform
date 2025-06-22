@@ -24,12 +24,12 @@ if [ -d "../main" ]; then
         echo "✅ Linked .claude directory"
     fi
 
-    # Link the entire .wrangler directory (not just create it)
+    # Copy the entire .wrangler directory contents
     if [ -d "../main/apps/auth/.wrangler" ]; then
-        # Remove any existing .wrangler directory/file first
+        # Remove any existing .wrangler directory first
         rm -rf apps/auth/.wrangler
-        ln -sf ../main/apps/auth/.wrangler apps/auth/.wrangler
-        echo "✅ Linked apps/auth/.wrangler directory"
+        cp -r ../main/apps/auth/.wrangler apps/auth/.wrangler
+        echo "✅ Copied apps/auth/.wrangler directory"
     fi
     
     # Link open app files  
@@ -38,11 +38,11 @@ if [ -d "../main" ]; then
         echo "✅ Linked apps/open/.env"
     fi
     
-    # Link the entire .wrangler directory for open app
+    # Copy the entire .wrangler directory for open app
     if [ -d "../main/apps/open/.wrangler" ]; then
         rm -rf apps/open/.wrangler
-        ln -sf ../main/apps/open/.wrangler apps/open/.wrangler
-        echo "✅ Linked apps/open/.wrangler directory"
+        cp -r ../main/apps/open/.wrangler apps/open/.wrangler
+        echo "✅ Copied apps/open/.wrangler directory"
     fi
     
     echo "🔗 Worktree setup complete!"
