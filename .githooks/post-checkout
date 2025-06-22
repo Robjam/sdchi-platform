@@ -1,19 +1,51 @@
 #!/usr/bin/env sh
-if [ "$3" = "1" ]; then
-    # Ensure we're in a worktree (not main)
-    if [ -d "../main" ]; then
-        # Create directories if they don't exist
-        mkdir -p apps/auth apps/open
-        
-        # Link auth app files
-        [ -f "../main/apps/auth/.env" ] && ln -sf ../main/apps/auth/.env apps/auth/.env
-        [ -d "../main/apps/auth/.wrangler" ] && ln -sf ../main/apps/auth/.wrangler apps/auth/.wrangler
-        
-        # Link open app files  
-        [ -f "../main/apps/open/.env" ] && ln -sf ../main/apps/open/.env apps/open/.env
-        [ -d "../main/apps/open/.wrangler" ] && ln -sf ../main/apps/open/.wrangler apps/open/.wrangler
-        
-        echo "🔗 Linked config files from main worktree"
+if [ -d "../main" ]; then
+    echo "🔧 Setting up new worktree..."
+    
+    # Create app directories if they don't exist
+    mkdir -p apps/auth apps/open
+    
+    # Link auth app files
+    if [ -f "../main/apps/auth/.env" ]; then
+        ln -sf ../main/apps/auth/.env apps/auth/.env
+        echo "✅ Linked apps/auth/.env"
     fi
-fi
 
+    # Link CLAUDE.md file
+    if [ -f "../main/CLAUDE.md" ]; then
+        ln -sf ../main/CLAUDE.md CLAUDE.md
+        echo "✅ Linked CLAUDE.md"
+    fi
+    
+    # Link .claude directory
+    if [ -d "../main/.claude" ]; then
+        rm -rf .claude
+        ln -sf ../main/.claude .claude
+        echo "✅ Linked .claude directory"
+    fi
+
+    # Link the entire .wrangler directory (not just create it)
+    if [ -d "../main/apps/auth/.wrangler" ]; then
+        # Remove any existing .wrangler directory/file first
+        rm -rf apps/auth/.wrangler
+        ln -sf ../main/apps/auth/.wrangler apps/auth/.wrangler
+        echo "✅ Linked apps/auth/.wrangler directory"
+    fi
+    
+    # Link open app files  
+    if [ -f "../main/apps/open/.env" ]; then
+        ln -sf ../main/apps/open/.env apps/open/.env
+        echo "✅ Linked apps/open/.env"
+    fi
+    
+    # Link the entire .wrangler directory for open app
+    if [ -d "../main/apps/open/.wrangler" ]; then
+        rm -rf apps/open/.wrangler
+        ln -sf ../main/apps/open/.wrangler apps/open/.wrangler
+        echo "✅ Linked apps/open/.wrangler directory"
+    fi
+    
+    echo "🔗 Worktree setup complete!"
+else
+    echo "⚠️  Main worktree not found, skipping setup"
+fi
