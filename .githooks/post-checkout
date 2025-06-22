@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+if [ "$3" = "1" ]; then
+    # Ensure we're in a worktree (not main)
+    if [ -d "../main" ]; then
+        # Create directories if they don't exist
+        mkdir -p apps/auth apps/open
+        
+        # Link auth app files
+        [ -f "../main/apps/auth/.env" ] && ln -sf ../main/apps/auth/.env apps/auth/.env
+        [ -d "../main/apps/auth/.wrangler" ] && ln -sf ../main/apps/auth/.wrangler apps/auth/.wrangler
+        
+        # Link open app files  
+        [ -f "../main/apps/open/.env" ] && ln -sf ../main/apps/open/.env apps/open/.env
+        [ -d "../main/apps/open/.wrangler" ] && ln -sf ../main/apps/open/.wrangler apps/open/.wrangler
+        
+        echo "🔗 Linked config files from main worktree"
+    fi
+fi
+

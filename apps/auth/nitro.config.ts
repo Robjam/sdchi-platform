@@ -25,8 +25,7 @@ export default defineNitroConfig({
     azureClientId: process.env.AZURE_CLIENT_ID,
     azureTenantId: process.env.AZURE_TENANT_ID,
     azureClientSecret: process.env.AZURE_CLIENT_SECRET,
-    lineClientSecret: process.env.LINE_CLIENT_SECRET,
-    
+
     // Public runtime config (client-side accessible)
     public: {
       appName: process.env.PUBLIC_APP_NAME || 'SDCHI Auth',
