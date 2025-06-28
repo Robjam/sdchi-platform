@@ -150,10 +150,13 @@ export default defineEventHandler(async (event) => {
     const accessTokenExpiry = now + 3600; // 1 hour
     const idTokenExpiry = now + 3600; // 1 hour
 
+    const idpIdToken = session.idToken || null; // Use existing ID token if available
+    const profileInformation = JSON.parse(atob(idpIdToken?.split('.')[1] || '{}'));
+
     // Create access token
     const config = useRuntimeConfig();
     const baseUrl = config.baseUrl || event.context.cloudflare.env.BASE_URL;
-    
+
     const accessToken = jwt.sign({
       iss: baseUrl,
       sub: user.id,
@@ -174,8 +177,8 @@ export default defineEventHandler(async (event) => {
       auth_time: Math.floor(session.createdAt.getTime() / 1000),
       email: user.email,
       email_verified: user.emailVerified,
-      // Note: Additional profile fields (name, picture, locale) would need to be added to users schema
-      // for full OIDC compliance. Current implementation provides basic required claims.
+      name: profileInformation.name,
+      picture: profileInformation.picture,
     }, client.tokenSecret, { algorithm: 'HS256' });
 
     // Return token response
