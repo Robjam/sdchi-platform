@@ -36,7 +36,24 @@ export default defineEventHandler(async (event) => {
         .where(eq(users.id, session.userId))
         .limit(1);
 
-      event.context.user = userWithProfile;
+      // Extract profile information from stored ID token
+      let enhancedUser = userWithProfile;
+      if (session.idToken) {
+        try {
+          const tokenPayload = JSON.parse(atob(session.idToken.split('.')[1]));
+          enhancedUser = {
+            ...userWithProfile,
+            name: tokenPayload.name || userWithProfile?.name,
+            picture: tokenPayload.picture || userWithProfile?.picture,
+            locale: tokenPayload.locale || userWithProfile?.locale,
+            emailVerified: tokenPayload.email_verified ?? userWithProfile?.emailVerified,
+          };
+        } catch (error) {
+          console.warn('Failed to decode ID token for profile enhancement:', error);
+        }
+      }
+
+      event.context.user = enhancedUser;
       return
     }
   }
