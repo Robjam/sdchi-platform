@@ -1,6 +1,6 @@
 #: schema https://github.com/cloudflare/workers-sdk/files/12887590/wrangler.schema.json
 name = "sdchi-auth"
-main = "dist/_worker.js/index.js"
+main = ".output/server/index.mjs
 compatibility_date = "2025-05-15"
 # account_id should be set via environment variable CLOUDFLARE_ACCOUNT_ID
 # or passed as a command line argument
