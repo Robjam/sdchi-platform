@@ -47,9 +47,11 @@ export default defineEventHandler(async (event) => {
     }
   }
 
+  let step = 0;
+
   // Initialize Azure Entra OIDC flow
+  const azureConfig = getAzureConfig();
   try {
-    const azureConfig = getAzureConfig();
     const authServer: oauth.AuthorizationServer = {
       issuer: `https://login.microsoftonline.com/${azureConfig.tenantId}/v2.0`,
       authorization_endpoint: `https://login.microsoftonline.com/${azureConfig.tenantId}/oauth2/v2.0/authorize`,
@@ -57,13 +59,17 @@ export default defineEventHandler(async (event) => {
       id_token_signing_alg_values_supported: ['RS256'],
     };
 
+    step++;
+
     const client: oauth.Client = {
       client_id: azureConfig.clientId,
     };
+    step++;
 
     // Generate PKCE parameters using oauth4webapi
     const codeVerifier = oauth.generateRandomCodeVerifier();
     const codeChallenge = await oauth.calculatePKCECodeChallenge(codeVerifier);
+    step++;
 
     // Generate security parameters
     const state = randomUUID();
@@ -71,6 +77,7 @@ export default defineEventHandler(async (event) => {
     const authRequestId = randomUUID();
 
     const redirectUri = `https://${event.headers.get('host')}/portal/callback`;
+    step++;
 
     // Store auth request for security validation
     await db.insert(portalAuthRequests).values({
@@ -87,6 +94,7 @@ export default defineEventHandler(async (event) => {
       status: 'initiated',
       expiresAt: new Date(Date.now() + 10 * 60 * 1000), // 10 minutes
     });
+    step++;
 
     // Build authorization URL
     const authUrl = new URL(authServer.authorization_endpoint!);
@@ -99,13 +107,14 @@ export default defineEventHandler(async (event) => {
     authUrl.searchParams.set('code_challenge', codeChallenge);
     authUrl.searchParams.set('code_challenge_method', 'S256');
     authUrl.searchParams.set('response_mode', 'query');
+    step++;
 
     return sendRedirect(event, authUrl.toString());
   } catch (error) {
     console.error('Auth middleware error:', error);
     throw createError({
       statusCode: 500,
-      statusMessage: JSON.stringify(error)//'Authentication initialization failed',
+      statusMessage: JSON.stringify({ error, clientId: azureConfig.clientId, tenantId: azureConfig.tenantId, step })//'Authentication initialization failed',
     });
   }
 });
