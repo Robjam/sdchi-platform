@@ -5,6 +5,12 @@ compatibility_date = "2025-05-15"
 # account_id should be set via environment variable CLOUDFLARE_ACCOUNT_ID
 # or passed as a command line argument
 
+[env.preview]
+name = "sdchi-auth"
+
+[env.production]
+name = "sdchi-auth"
+
 [dev]
 port = 3001
 
@@ -21,18 +27,18 @@ migrations_dir = "drizzle"
 [[env.preview.d1_databases]]
 binding = "DB"
 database_name = "dev-sdchi-auth-db"
-database_id = "d4a8939e-8ebc-4357-8b86-35b1723cb60e"
+database_id = "fb8d7c8c-d473-4b55-8ce7-2b618ee49c55"
 migrations_dir = "drizzle"
 
 [env.preview.vars]
-BASE_URL = "https://auth-preview.yourdomain.com"
+BASE_URL = "https://auth-dev.sdchi.jp"
 
 # Prod env overrides
 [[env.production.d1_databases]]
 binding = "DB"
 database_name = "prod-sdchi-auth-db"
-database_id = "53825883-7d7b-4cb0-89c6-7e1319282365"
+database_id = "4f232c56-9728-46a8-b6fa-3ed6e48eba4e"
 migrations_dir = "drizzle"
 
 [env.production.vars]
-BASE_URL = "https://auth.yourdomain.com"
+BASE_URL = "https://auth.sdchi.jp"
