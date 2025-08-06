@@ -105,8 +105,7 @@ export default defineEventHandler(async (event) => {
     console.error('Auth middleware error:', error);
     throw createError({
       statusCode: 500,
-      statusMessage: 'Authentication initialization failed',
-      error: error
+      statusMessage: JSON.stringify(error)//'Authentication initialization failed',
     });
   }
 });
