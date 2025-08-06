@@ -4,7 +4,7 @@ export default defineNitroConfig({
   srcDir: "server",
   preset: "cloudflare_module",
   cloudflare: {
-      deployConfig: './wrangler.toml',
+      deployConfig: false,
   },
   compatibilityDate: "2025-05-15",
   modules: [nitroCloudflareBindings],
