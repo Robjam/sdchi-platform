@@ -114,7 +114,7 @@ export default defineEventHandler(async (event) => {
     console.error('Auth middleware error:', error);
     throw createError({
       statusCode: 500,
-      statusMessage: JSON.stringify({ error, config: azureConfig, step, dbInfo: JSON.stringify(event.context.cloudflare.env) })//'Authentication initialization failed',
+      statusMessage: JSON.stringify({ error, config: azureConfig, step })//'Authentication initialization failed',
     });
   }
 });
