@@ -2,7 +2,10 @@ import nitroCloudflareBindings from "nitro-cloudflare-dev";
 
 export default defineNitroConfig({
   srcDir: "server",
-  preset: "cloudflare_pages",
+  preset: "cloudflare_module",
+  cloudflare: {
+      deployConfig: './wrangler.toml',
+  },
   compatibilityDate: "2025-05-15",
   modules: [nitroCloudflareBindings],
   ignore: [
