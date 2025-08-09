@@ -38,6 +38,11 @@ migrations_dir = "drizzle"
 
 [env.preview.vars]
 BASE_URL = "https://auth-dev.sdchi.jp"
+COOKIE_DOMAIN = ""
+SESSION_MAX_AGE = '172800'
+AZURE_CLIENT_ID = ""
+AZURE_TENANT_ID = ""
+AZURE_CLIENT_SECRET = ""
 
 # Prod env overrides
 [[env.production.d1_databases]]
@@ -48,3 +53,8 @@ migrations_dir = "drizzle"
 
 [env.production.vars]
 BASE_URL = "https://auth.sdchi.jp"
+COOKIE_DOMAIN = ""
+SESSION_MAX_AGE = '172800'
+AZURE_CLIENT_ID = ""
+AZURE_TENANT_ID = ""
+AZURE_CLIENT_SECRET = ""
