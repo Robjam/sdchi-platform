@@ -11,11 +11,17 @@ name = "sdchi-auth"
 [env.production]
 name = "sdchi-auth"
 
+
 [dev]
 port = 3001
 
 [vars]
 BASE_URL = "https://auth.labs.localhost.localdomain:3000"
+COOKIE_DOMAIN = ""
+SESSION_MAX_AGE = '172800'
+AZURE_CLIENT_ID = ""
+AZURE_TENANT_ID = ""
+AZURE_CLIENT_SECRET = ""
 
 [[d1_databases]]
 binding = "DB"
