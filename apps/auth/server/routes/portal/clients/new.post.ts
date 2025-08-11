@@ -40,8 +40,7 @@ export default defineEventHandler(async (event) => {
   } catch (error) {
     return sendError(event, createError({
       statusCode: 500,
-      statusMessage: 'Failed to create client',
-      data: error
+      statusMessage: `Failed to create client - ${error.message}`,
     }));
   }
 
