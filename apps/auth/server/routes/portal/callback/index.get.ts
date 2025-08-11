@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
       statusMessage: 'Missing required parameters'
     }));
   }
-
+  let errorMessage = 'no errors';
   try {
     const azureConfig = getAzureConfig(event);
 
@@ -51,7 +51,7 @@ export default defineEventHandler(async (event) => {
         statusMessage: 'Auth request has expired'
       }));
     }
-
+    errorMessage = 'authRequest found';
     // Configure Azure Entra server
     const authServer: oauth.AuthorizationServer = {
       issuer: `https://login.microsoftonline.com/${azureConfig.tenantId}/v2.0`,
@@ -76,7 +76,11 @@ export default defineEventHandler(async (event) => {
     // }
 
     const config = useRuntimeConfig(event);
-    const clientAuthentication = oauth.ClientSecretPost(config.azureClientSecret)
+    const clientAuthentication = oauth.ClientSecretPost(event.context.cloudflare.env.NITRO_AZURE_CLIENT_SECRET as string || config.azureClientSecret);
+
+
+    errorMessage = 'probably a client secret issue';
+
 
     // Exchange authorization code for tokens using PKCE
     const tokenRequest = await oauth.authorizationCodeGrantRequest(
