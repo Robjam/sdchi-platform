@@ -5,11 +5,12 @@ import { useDb } from '../../../../db';
 import { portalAuthRequests, portalAdmins, portalSessions } from '../../../../db/schema/admin';
 import { randomUUID, randomBytes } from 'crypto';
 
-function getAzureConfig() {
-  const config = useRuntimeConfig();
+function getAzureConfig(event: any) {
+  const config = useRuntimeConfig(event);
+  const envVars = event.context.cloudflare.env as any;
   return {
-    clientId: config.azureClientId,
-    tenantId: config.azureTenantId,
+    clientId: envVars.NITRO_AZURE_CLIENT_ID || config.azureClientId,
+    tenantId: envVars.NITRO_AZURE_TENANT_ID || config.azureTenantId,
     scope: 'openid profile email',
   };
 }
@@ -25,10 +26,10 @@ export default defineEventHandler(async (event) => {
       statusMessage: 'Missing required parameters'
     }));
   }
-
+  let errorMessage = 'no errors';
   try {
-    const azureConfig = getAzureConfig();
-    
+    const azureConfig = getAzureConfig(event);
+
     // Find auth request by state for CSRF protection
     const [authRequest] = await db
       .select()
@@ -50,7 +51,7 @@ export default defineEventHandler(async (event) => {
         statusMessage: 'Auth request has expired'
       }));
     }
-
+    errorMessage = 'authRequest found';
     // Configure Azure Entra server
     const authServer: oauth.AuthorizationServer = {
       issuer: `https://login.microsoftonline.com/${azureConfig.tenantId}/v2.0`,
@@ -74,8 +75,12 @@ export default defineEventHandler(async (event) => {
     //   }));
     // }
 
-    const config = useRuntimeConfig();
-    const clientAuthentication = oauth.ClientSecretPost(config.azureClientSecret)
+    const config = useRuntimeConfig(event);
+    const clientAuthentication = oauth.ClientSecretPost(event.context.cloudflare.env.NITRO_AZURE_CLIENT_SECRET as string || config.azureClientSecret);
+
+
+    errorMessage = 'probably a client secret issue';
+
 
     // Exchange authorization code for tokens using PKCE
     const tokenRequest = await oauth.authorizationCodeGrantRequest(

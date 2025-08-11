@@ -9,12 +9,13 @@ const privateRoutes = [
   '/portal',
 ]
 
-function getAzureConfig() {
-  const config = useRuntimeConfig();
+function getAzureConfig(event) {
+  const config = useRuntimeConfig(event);
+  const envVars = event.context.cloudflare.env as any;
   return {
-    clientId: config.azureClientId,
-    tenantId: config.azureTenantId,
-    discoveryUrl: `https://login.microsoftonline.com/${config.azureTenantId}/v2.0/.well-known/openid-configuration`,
+    clientId: envVars.NITRO_AZURE_CLIENT_ID || config.azureClientId,
+    tenantId: envVars.NITRO_AZURE_TENANT_ID || config.azureTenantId,
+    discoveryUrl: `https://login.microsoftonline.com/${envVars.NITRO_AZURE_TENANT_ID || config.azureTenantId}/v2.0/.well-known/openid-configuration`,
     scope: 'openid profile email',
   };
 }
@@ -47,9 +48,11 @@ export default defineEventHandler(async (event) => {
     }
   }
 
+  let step = 0;
+
   // Initialize Azure Entra OIDC flow
+  const azureConfig = getAzureConfig(event);
   try {
-    const azureConfig = getAzureConfig();
     const authServer: oauth.AuthorizationServer = {
       issuer: `https://login.microsoftonline.com/${azureConfig.tenantId}/v2.0`,
       authorization_endpoint: `https://login.microsoftonline.com/${azureConfig.tenantId}/oauth2/v2.0/authorize`,
@@ -57,13 +60,17 @@ export default defineEventHandler(async (event) => {
       id_token_signing_alg_values_supported: ['RS256'],
     };
 
+    step++;
+
     const client: oauth.Client = {
       client_id: azureConfig.clientId,
     };
+    step++;
 
     // Generate PKCE parameters using oauth4webapi
     const codeVerifier = oauth.generateRandomCodeVerifier();
     const codeChallenge = await oauth.calculatePKCECodeChallenge(codeVerifier);
+    step++;
 
     // Generate security parameters
     const state = randomUUID();
@@ -71,6 +78,7 @@ export default defineEventHandler(async (event) => {
     const authRequestId = randomUUID();
 
     const redirectUri = `https://${event.headers.get('host')}/portal/callback`;
+    step++;
 
     // Store auth request for security validation
     await db.insert(portalAuthRequests).values({
@@ -87,6 +95,7 @@ export default defineEventHandler(async (event) => {
       status: 'initiated',
       expiresAt: new Date(Date.now() + 10 * 60 * 1000), // 10 minutes
     });
+    step++;
 
     // Build authorization URL
     const authUrl = new URL(authServer.authorization_endpoint!);
@@ -99,13 +108,14 @@ export default defineEventHandler(async (event) => {
     authUrl.searchParams.set('code_challenge', codeChallenge);
     authUrl.searchParams.set('code_challenge_method', 'S256');
     authUrl.searchParams.set('response_mode', 'query');
+    step++;
 
     return sendRedirect(event, authUrl.toString());
   } catch (error) {
     console.error('Auth middleware error:', error);
     throw createError({
       statusCode: 500,
-      statusMessage: 'Authentication initialization failed'
+      statusMessage: JSON.stringify({ error, config: azureConfig, step })//'Authentication initialization failed',
     });
   }
 });

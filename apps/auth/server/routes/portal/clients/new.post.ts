@@ -14,10 +14,10 @@ const ClientSchema = z.object({
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
-  
+
   // Validate CSRF token
   validateCsrfToken(event, body._csrf);
-  
+
   const validation = ClientSchema.safeParse(body);
 
   if (!validation.success) {
@@ -30,12 +30,19 @@ export default defineEventHandler(async (event) => {
   const uniqueClientId = randomUUID();
   const uniqueClientSecret = randomBytes(32).toString('hex');
   const db = useDb((event.context.cloudflare.env as any));
-  await db.insert(sdchiClients).values({
-    id: uniqueClientId,
-    applicationName: application_name,
-    redirectUris: JSON.stringify([redirect_uri]),
-    tokenSecret: uniqueClientSecret,
-  });
+  try {
+    await db.insert(sdchiClients).values({
+      id: uniqueClientId,
+      applicationName: application_name,
+      redirectUris: JSON.stringify([redirect_uri]),
+      tokenSecret: uniqueClientSecret,
+    });
+  } catch (error) {
+    return sendError(event, createError({
+      statusCode: 500,
+      statusMessage: `Failed to create client - ${error.message}`,
+    }));
+  }
 
   return sendRedirect(event, '/portal/clients');
 });

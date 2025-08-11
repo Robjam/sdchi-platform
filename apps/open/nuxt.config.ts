@@ -20,10 +20,22 @@ export default defineNuxtConfig({
   devServer: {
     port: 2500,
     host: '127.0.0.1',
-    https: {
-      key: `${fs.readFileSync(path.join(os.homedir(), 'certs/localhost.localdomain+3-key.pem'))}`,
-      cert: `${fs.readFileSync(path.join(os.homedir(), 'certs/localhost.localdomain+3.pem'))}`,
-    }
+    https: process.env.NODE_ENV === 'production' ? false : (() => {
+      try {
+        const keyPath = path.join(os.homedir(), 'certs/localhost.localdomain+3-key.pem')
+        const certPath = path.join(os.homedir(), 'certs/localhost.localdomain+3.pem')
+        
+        if (fs.existsSync(keyPath) && fs.existsSync(certPath)) {
+          return {
+            key: fs.readFileSync(keyPath, 'utf8'),
+            cert: fs.readFileSync(certPath, 'utf8'),
+          }
+        }
+        return false
+      } catch {
+        return false
+      }
+    })()
   },
   runtimeConfig: {
     public: {

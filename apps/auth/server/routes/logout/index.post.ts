@@ -15,7 +15,7 @@ interface LogoutBody {
 
 export default defineEventHandler(async (event) => {
   const db = useDb((event.context.cloudflare.env as any));
-  const config = useRuntimeConfig();
+  const config = useRuntimeConfig(event);
 
   try {
     // Get session cookie
