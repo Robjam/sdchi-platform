@@ -16,12 +16,12 @@ name = "sdchi-auth"
 port = 3001
 
 [vars]
-BASE_URL = "https://auth.labs.localhost.localdomain:3000"
-COOKIE_DOMAIN = ""
-SESSION_MAX_AGE = '172800'
-AZURE_CLIENT_ID = ""
-AZURE_TENANT_ID = ""
-AZURE_CLIENT_SECRET = ""
+NITRO_BASE_URL = "https://auth.labs.localhost.localdomain:3000"
+NITRO_COOKIE_DOMAIN = ""
+NITRO_SESSION_MAX_AGE = '172800'
+NITRO_AZURE_CLIENT_ID = ""
+NITRO_AZURE_TENANT_ID = ""
+NITRO_AZURE_CLIENT_SECRET = ""
 
 [[d1_databases]]
 binding = "DB"
@@ -37,11 +37,11 @@ database_id = "fb8d7c8c-d473-4b55-8ce7-2b618ee49c55"
 migrations_dir = "drizzle"
 
 [env.preview.vars]
-BASE_URL = "https://auth-dev.sdchi.jp"
-COOKIE_DOMAIN = ""
-SESSION_MAX_AGE = '172800'
-AZURE_CLIENT_ID = "09199bc3-585c-40fe-879d-3798242e6be4"
-AZURE_TENANT_ID = "780a5c21-5b39-4b10-8ae0-71bd15ec5fa0"
+NITRO_BASE_URL = "https://auth-dev.sdchi.jp"
+NITRO_COOKIE_DOMAIN = ""
+NITRO_SESSION_MAX_AGE = '172800'
+NITRO_AZURE_CLIENT_ID = "09199bc3-585c-40fe-879d-3798242e6be4"
+NITRO_AZURE_TENANT_ID = "780a5c21-5b39-4b10-8ae0-71bd15ec5fa0"
 
 # Prod env overrides
 [[env.production.d1_databases]]
@@ -51,8 +51,8 @@ database_id = "4f232c56-9728-46a8-b6fa-3ed6e48eba4e"
 migrations_dir = "drizzle"
 
 [env.production.vars]
-BASE_URL = "https://auth.sdchi.jp"
-COOKIE_DOMAIN = ""
-SESSION_MAX_AGE = '172800'
-AZURE_CLIENT_ID = "09199bc3-585c-40fe-879d-3798242e6be4"
-AZURE_TENANT_ID = "780a5c21-5b39-4b10-8ae0-71bd15ec5fa0"
+NITRO_BASE_URL = "https://auth.sdchi.jp"
+NITRO_COOKIE_DOMAIN = ""
+NITRO_SESSION_MAX_AGE = '172800'
+NITRO_AZURE_CLIENT_ID = "09199bc3-585c-40fe-879d-3798242e6be4"
+NITRO_AZURE_TENANT_ID = "780a5c21-5b39-4b10-8ae0-71bd15ec5fa0"
