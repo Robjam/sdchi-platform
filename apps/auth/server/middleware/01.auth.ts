@@ -11,10 +11,11 @@ const privateRoutes = [
 
 function getAzureConfig(event) {
   const config = useRuntimeConfig(event);
+  const envVars = event.context.cloudflare.env as any;
   return {
-    clientId: config.azureClientId,
-    tenantId: config.azureTenantId,
-    discoveryUrl: `https://login.microsoftonline.com/${config.azureTenantId}/v2.0/.well-known/openid-configuration`,
+    clientId: envVars.NITRO_AZURE_CLIENT_ID || config.azureClientId,
+    tenantId: envVars.NITRO_AZURE_TENANT_ID || config.azureTenantId,
+    discoveryUrl: `https://login.microsoftonline.com/${envVars.NITRO_AZURE_TENANT_ID || config.azureTenantId}/v2.0/.well-known/openid-configuration`,
     scope: 'openid profile email',
   };
 }

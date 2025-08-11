@@ -5,11 +5,12 @@ import { useDb } from '../../../../db';
 import { portalAuthRequests, portalAdmins, portalSessions } from '../../../../db/schema/admin';
 import { randomUUID, randomBytes } from 'crypto';
 
-function getAzureConfig() {
+function getAzureConfig(event: any) {
   const config = useRuntimeConfig(event);
+  const envVars = event.context.cloudflare.env as any;
   return {
-    clientId: config.azureClientId,
-    tenantId: config.azureTenantId,
+    clientId: envVars.NITRO_AZURE_CLIENT_ID || config.azureClientId,
+    tenantId: envVars.NITRO_AZURE_TENANT_ID || config.azureTenantId,
     scope: 'openid profile email',
   };
 }
