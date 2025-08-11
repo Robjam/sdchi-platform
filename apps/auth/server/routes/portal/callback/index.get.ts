@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    const azureConfig = getAzureConfig();
+    const azureConfig = getAzureConfig(event);
 
     // Find auth request by state for CSRF protection
     const [authRequest] = await db
