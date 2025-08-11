@@ -9,8 +9,8 @@ const privateRoutes = [
   '/portal',
 ]
 
-function getAzureConfig() {
-  const config = useRuntimeConfig();
+function getAzureConfig(event) {
+  const config = useRuntimeConfig(event);
   return {
     clientId: config.azureClientId,
     tenantId: config.azureTenantId,
@@ -50,7 +50,7 @@ export default defineEventHandler(async (event) => {
   let step = 0;
 
   // Initialize Azure Entra OIDC flow
-  const azureConfig = getAzureConfig();
+  const azureConfig = getAzureConfig(event);
   try {
     const authServer: oauth.AuthorizationServer = {
       issuer: `https://login.microsoftonline.com/${azureConfig.tenantId}/v2.0`,

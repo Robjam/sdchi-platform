@@ -167,7 +167,7 @@ export default defineEventHandler(async (event) => {
     });
 
     // Set session cookie for auth domain only
-    const config = useRuntimeConfig();
+    const config = useRuntimeConfig(event);
     setCookie(event, 'sdchi_auth_session', sessionId, {
       httpOnly: true,
       secure: true,

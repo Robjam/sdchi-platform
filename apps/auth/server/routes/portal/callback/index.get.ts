@@ -6,7 +6,7 @@ import { portalAuthRequests, portalAdmins, portalSessions } from '../../../../db
 import { randomUUID, randomBytes } from 'crypto';
 
 function getAzureConfig() {
-  const config = useRuntimeConfig();
+  const config = useRuntimeConfig(event);
   return {
     clientId: config.azureClientId,
     tenantId: config.azureTenantId,
@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
 
   try {
     const azureConfig = getAzureConfig();
-    
+
     // Find auth request by state for CSRF protection
     const [authRequest] = await db
       .select()
@@ -74,7 +74,7 @@ export default defineEventHandler(async (event) => {
     //   }));
     // }
 
-    const config = useRuntimeConfig();
+    const config = useRuntimeConfig(event);
     const clientAuthentication = oauth.ClientSecretPost(config.azureClientSecret)
 
     // Exchange authorization code for tokens using PKCE

@@ -154,7 +154,7 @@ export default defineEventHandler(async (event) => {
     const profileInformation = JSON.parse(atob(idpIdToken?.split('.')[1] || '{}'));
 
     // Create access token
-    const config = useRuntimeConfig();
+    const config = useRuntimeConfig(event);
     const baseUrl = config.baseUrl || event.context.cloudflare.env.BASE_URL;
 
     const accessToken = jwt.sign({
