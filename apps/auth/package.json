@@ -1,12 +1,13 @@
 {
   "name": "@repo/sdchi-auth",
   "version": "0.0.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "build": "nitro build",
-    "build:css": "tailwindcss -i ./style.css -o ./server/public/style.css",
+    "build:css": "postcss style.css -o ./server/public/style.css",
     "dev": "nitro dev --https",
-    "dev:css": "tailwindcss -i ./style.css -o ./server/public/style.css --watch",
+    "dev:css": "postcss style.css -o ./server/public/style.css --watch",
     "preview": "node .output/server/index.mjs",
     "postinstall": "nitro prepare",
     "test": "vitest run",
@@ -19,14 +20,14 @@
     "seed:manual": "tsx ./seeds/index.ts"
   },
   "devDependencies": {
-    "@tailwindcss/cli": "^4.1.7",
     "@tailwindcss/postcss": "^4.1.7",
+    "tailwindcss": "^4.1.7",
+    "postcss": "^8.5.3",
+    "postcss-cli": "^11.0.1",
     "drizzle-kit": "^0.31.0",
     "drizzle-seed": "^0.3.1",
     "nitropack": "latest",
-    "postcss": "^8.5.3",
     "rollup-plugin-postcss": "^4.0.2",
-    "tailwindcss": "^4.1.7",
     "typescript": "^5.3.0",
     "vitest": "^1.4.0"
   },

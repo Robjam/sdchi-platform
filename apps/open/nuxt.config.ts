@@ -1,12 +1,17 @@
 import fs from 'fs'
 import path from 'path'
 import os from 'os'
+import tailwindcss from "@tailwindcss/vite";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  css: ['~/assets/css/main.css', 'qalendar/dist/style.css'],
+  vite: {
+    plugins: [tailwindcss()],
+  },
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
   ssr: false,
-  css: ['qalendar/dist/style.css'],
   nitro: {
     preset: 'cloudflare_pages',
   },
@@ -14,7 +19,6 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/icon',
     '@nuxt/test-utils',
-    '@nuxtjs/tailwindcss',
     'nitro-cloudflare-dev',
   ],
   devServer: {
