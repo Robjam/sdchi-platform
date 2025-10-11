@@ -7,6 +7,7 @@ export const signups = sqliteTable('signups', {
   company: text('company', { length: 255 }),
   email: text('email', { length: 255 }).notNull().unique(),
   source: text('source', { length: 100 }),
+  service: text('service', { length: 100 }),
   createdAt: integer('created_at', { mode: 'timestamp' })
     .default(sql`(unixepoch())`)
     .notNull(),

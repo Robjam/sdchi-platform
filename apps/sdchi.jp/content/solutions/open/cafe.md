@@ -2,6 +2,21 @@
 title: SDCHI Open - 営業時間管理を簡単に、コーヒー作りにもっと集中を
 description: 毎月の営業時間カレンダー作成にお困りではありませんか？SDCHI Openで、もっと大切なことに時間を使いましょう。
 status: waitlist
+serviceId: sdchi-open
+serviceName: SDCHI Open
+serviceSlug: open
+serviceTagline: 営業時間管理を自動化
+serviceLogo: /OPEN_logo.svg
+serviceColors:
+  primary: '#10b981'
+  secondary: '#3b82f6'
+serviceNavigation:
+  - name: ソリューション
+    href: /solutions/open-cafe
+  - name: 機能
+    href: '#features'
+  - name: お問い合わせ
+    href: '#contact'
 ---
 
 ::hero{title="コーヒーの時間を、もっと" subtitle="営業時間管理はお任せください。<br class='md:hidden'>本業に集中を。" image="/cafe-hero.png"}

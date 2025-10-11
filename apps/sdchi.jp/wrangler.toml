@@ -6,6 +6,7 @@ compatibility_flags = ["nodejs_compat"]
 binding = "DB"
 database_name = "sdchi-signups-dev"
 database_id = "a685a159-bb54-49fb-9c9f-590e984a043a"
+migrations_dir = "drizzle/migrations"
 
 [env.development]
 name = "sdchi-jp-dev"
@@ -14,7 +15,7 @@ name = "sdchi-jp-dev"
 binding = "DB"
 database_name = "sdchi-signups-dev"
 database_id = "a685a159-bb54-49fb-9c9f-590e984a043a"
-migrations_dir = "drizzle"
+migrations_dir = "drizzle/migrations"
 
 [env.production]
 name = "sdchi-jp"
@@ -23,7 +24,7 @@ name = "sdchi-jp"
 binding = "DB"
 database_name = "sdchi-signups"
 database_id = "2ac3467d-ea4e-44e9-acd3-f6ce9b2e2b41"  # To be filled when D1 database is created
-migrations_dir = "drizzle"
+migrations_dir = "drizzle/migrations"
 
 [env.preview]
 name = "sdchi-jp-dev"
@@ -32,4 +33,4 @@ name = "sdchi-jp-dev"
 binding = "DB"
 database_name = "sdchi-signups-dev"
 database_id = "a685a159-bb54-49fb-9c9f-590e984a043a"
-migrations_dir = "drizzle"
+migrations_dir = "drizzle/migrations"

@@ -1,0 +1,1 @@
+ALTER TABLE `signups` ADD `service` text(100);

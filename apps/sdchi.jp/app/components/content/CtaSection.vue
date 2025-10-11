@@ -134,6 +134,10 @@ const props = defineProps({
     type: String,
     default: 'waitlist',
     validator: (value) => ['waitlist', 'private-beta', 'public-beta', 'general-availability'].includes(value)
+  },
+  service: {
+    type: String,
+    default: null
   }
 })
 
@@ -219,7 +223,8 @@ const handleSubmit = async () => {
         company: form.value.company,
         email: form.value.email,
         canary: form.value.canary,
-        source: props.signupType
+        source: props.signupType,
+        service: props.service
       }
     })
 

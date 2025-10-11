@@ -9,7 +9,8 @@ const signupSchema = z.object({
   company: z.string().max(255).optional(),
   email: z.string().email().max(255),
   canary: z.string().optional(),
-  source: z.string().max(100).optional()
+  source: z.string().max(100).optional(),
+  service: z.string().max(100).optional()
 })
 
 export default defineEventHandler(async (event) => {
@@ -24,7 +25,7 @@ export default defineEventHandler(async (event) => {
   try {
     // Parse and validate request body
     const body = await readBody(event)
-    const { name, company, email, canary, source } = signupSchema.parse(body)
+    const { name, company, email, canary, source, service } = signupSchema.parse(body)
 
     // Bot detection: if canary field is filled, flag as potential bot
     const isBotFlagged = Boolean(canary && canary.trim().length > 0)
@@ -55,6 +56,7 @@ export default defineEventHandler(async (event) => {
         company: company || null,
         email,
         source: source || null,
+        service: service || null,
         isBotFlagged,
         canaryFieldTouched
       })
