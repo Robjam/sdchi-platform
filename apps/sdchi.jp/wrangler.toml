@@ -8,15 +8,6 @@ database_name = "sdchi-signups-dev"
 database_id = "a685a159-bb54-49fb-9c9f-590e984a043a"
 migrations_dir = "drizzle/migrations"
 
-[env.development]
-name = "sdchi-jp-dev"
-
-[[env.development.d1_databases]]
-binding = "DB"
-database_name = "sdchi-signups-dev"
-database_id = "a685a159-bb54-49fb-9c9f-590e984a043a"
-migrations_dir = "drizzle/migrations"
-
 [env.production]
 name = "sdchi-jp"
 
