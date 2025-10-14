@@ -1,0 +1,39 @@
+{
+  "name": "nuxt-app",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "dev:bs": "wrangler pages dev --local --compatibility-date=2025-07-15 --d1=DB:sdchi-signups-dev -- nuxt dev",
+    "dev:wrangler": "wrangler pages dev --local --port 3000 .output/public",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
+    "db:drop": "drizzle-kit drop",
+    "wrangler:dev": "wrangler pages dev",
+    "cf:deploy": "wrangler pages publish .output/public"
+  },
+  "dependencies": {
+    "@cloudflare/workers-types": "^4.20250906.0",
+    "@nuxt/content": "3.6.3",
+    "@tailwindcss/typography": "^0.5.19",
+    "better-sqlite3": "^12.2.0",
+    "drizzle-kit": "^0.31.4",
+    "drizzle-orm": "^0.44.5",
+    "nuxt": "4.1.2",
+    "vue": "^3.5.20",
+    "vue-router": "^4.5.1",
+    "zod": "^4.1.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.7",
+    "@types/node": "^24.3.1",
+    "nitro-cloudflare-dev": "^0.2.2",
+    "tailwindcss": "^4.1.7",
+    "wrangler": "^4.40.2"
+  }
+}

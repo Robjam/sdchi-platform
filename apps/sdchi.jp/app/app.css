@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme {
+  /* Primary - Lime Green */
+  --color-primary-50: #f7fdf0;
+  --color-primary-100: #eefbdc;
+  --color-primary-200: #dcf7b9;
+  --color-primary-300: #bfef84;
+  --color-primary-400: #a3e455;
+  --color-primary-500: #80b944;
+  --color-primary-600: #6ba037;
+  --color-primary-700: #568029;
+  --color-primary-800: #45661e;
+  --color-primary-900: #354d17;
+
+  /* Secondary - Forest Green */
+  --color-secondary-50: #f2f8f1;
+  --color-secondary-100: #e0f0dd;
+  --color-secondary-200: #c1e1bc;
+  --color-secondary-300: #8fc785;
+  --color-secondary-400: #5da750;
+  --color-secondary-500: #3b8236;
+  --color-secondary-600: #2f6a2b;
+  --color-secondary-700: #265422;
+  --color-secondary-800: #1f431b;
+  --color-secondary-900: #183616;
+
+  /* Accent - Citrus */
+  --color-accent-50: #fffef0;
+  --color-accent-100: #fffcd1;
+  --color-accent-200: #fff8a3;
+  --color-accent-300: #fff165;
+  --color-accent-400: #ffe627;
+  --color-accent-500: #f5d400;
+  --color-accent-600: #d4b000;
+  --color-accent-700: #a88700;
+  --color-accent-800: #866a00;
+  --color-accent-900: #6d5600;
+
+  /* Neutral - Earth Tones */
+  --color-neutral-50: #fafaf8;
+  --color-neutral-100: #f2f2ed;
+  --color-neutral-200: #e8e8df;
+  --color-neutral-300: #d4d4c5;
+  --color-neutral-400: #b8b8a3;
+  --color-neutral-500: #8f8f7a;
+  --color-neutral-600: #6e6e5e;
+  --color-neutral-700: #545449;
+  --color-neutral-800: #3f3f38;
+  --color-neutral-900: #2b2b25;
+
+  /* Semantic Colors */
+  --color-success: #80b944;
+  --color-warning: #f5d400;
+  --color-error: #d84315;
+  --color-info: #0288d1;
+}
